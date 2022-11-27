@@ -1,0 +1,31 @@
+[user]
+	name = fulan
+	email = fulan@fulan.id
+[core]
+	autocrlf = input
+	editor = vim -ni NONE
+	pager = less
+	whitespace = trailing-space,tabwidth=4
+[bash]
+	showUntrackedFiles = true
+	showDirtyState = true
+	hideIfPwdIgnored = true
+[init]
+	defaultBranch = master
+[alias]
+	st = status -s
+	lg = log --pretty=format:'%h::%ar\nAuthor: %an <%ae>\nCommiter: %cn <%ce>\n\n%s\n\n'
+	unstage = reset HEAD --
+	mer = branch --merged
+	nomer = branch --no-merged
+[color "status"]
+	untracked = 196 bold
+	added = 118 bold
+	changed = 196 bold
+	unmerged = 196 bold
+[color]
+	branch = auto
+[color "branch"]
+	current = 72 bold
+[push]
+	default = simple

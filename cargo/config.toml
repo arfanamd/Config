@@ -1,0 +1,30 @@
+[alias]     # command aliases
+b = "build"
+c = "check"
+t = "test"
+r = "run"
+
+[package]
+authors = ["fulan <fulan@fulan.id>"]
+
+[build]
+jobs = 1                      # number of parallel jobs, defaults to # of CPUs
+incremental = true            # whether or not to enable incremental compilation
+
+[cargo-new]
+vcs = "git"              # VCS to use ('git', 'hg', 'pijul', 'fossil', 'none')
+
+[profile.dev]
+opt-level = 1            # Optimization level.
+debug = true             # Include debug info.
+debug-assertions = true  # Enables debug assertions.
+overflow-checks = true   # Enables runtime integer overflow checks.
+panic = 'unwind'         # The panic strategy.
+incremental = true       # Incremental compilation.
+
+[term]
+quiet = false          # whether cargo output is quiet
+verbose = false        # whether cargo provides verbose output
+color = 'auto'         # whether cargo colorizes output
+progress.when = 'auto' # whether cargo shows progress bar
+progress.width = 60    # width of progress bar

@@ -1,0 +1,101 @@
+# --------------------------------------------------
+# MINIMAL SETUP SHELL FOR TERMUX INCLUDE COLORIZING.
+# --------------------------------------------------
+# The less features you set
+# The more skills you'll get.
+# --->>
+# Property of arfanamd.
+# Last_edited: Thu Nov 18 01:30:18 WIB 2021
+# Termux     : v.0.117 (official f-droid version)
+# --------------------------------------------------
+
+# Nonexist commands handler.
+# If user has entered command which invokes non-available
+# utility, command-not-found will give a package suggestions.
+if [[ -x /data/data/com.termux/files/usr/libexec/termux/command-not-found ]]; then
+	command_not_found_handle() {
+		printf "\e[1;38;5;58m"
+		/data/data/com.termux/files/usr/libexec/termux/command-not-found "$1"
+		printf "\e[0m\n"
+	}
+fi
+
+# Command history tweaks:
+# - Append history instead of overwriting
+#   when shell exits.
+# - When using history substitution, do not
+#   exec command immediately.
+# - Do not save duplicated commands.
+shopt -s histappend
+shopt -s histverify
+export HISTCONTROL=erasedups
+
+# Default time format for history (optional).
+# The format use "date" command format.
+export HISTTIMEFORMAT='%g%m%d:%H:%M '
+
+# Default text editor.
+export VISUAL='busybox vi'
+
+# Auto-correct for directory name misspelling/typo.
+shopt -s cdspell
+
+# Warn the user when they're trying to exit while there's
+# jobs running in the background.
+shopt -s checkjobs
+
+# Set current session information to window title.
+printf "\e]0; ${1:-🐧 %s - %s} \007" "$(date +'%d/%m/%y - %H:%M %Z')" "${SHLVL}"
+
+# Print up time information
+printf -- "\e[2m"; uptime; printf -- "\e[0m"
+
+# Default path wrapper in command prompt.
+export PROMPT_DIRTRIM=2
+
+# Some color set
+export LS_COLORS='rs=0:di=01;38;2;119;189;253:ln=01;38;2;122;228;231:mh=00:pi=40;33:so=01;38;2;206;165;251:do=01;38;2;206;165;251:bd=40;33;01:cd=40;33;01:or=41;30;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;38;2;124;227;139:*.tar=01;38;2;200;068;044:*.gz=01;38;2;200;068;044:*.bz=01;38;2;200;068;044:*.zip=01;38;2;200;068;044:*.mp3=01;38;2;206;165;251:*.mp4=01;38;2;206;165;251:'
+
+# To set HOSTNAME globally  use hostname command as privilege user.
+# e.g. $ hostname [YourCustomHostname]
+# otherwise, you can use this trick
+#export HOSTNAME=CustomHostname
+
+# Igor chubin weather service
+#export WTTR_RPT=$(curl -s https://wttr.in/Cilodong?format=%l:+%C+%t+%w)
+
+# Git prompt attribute
+export GIT_PS1_SHOWDIRTYSTATE=1	 # '*' unstaged, '+' staged
+export GIT_PS1_SHOWSTASHSTATE=1	 # '$' sign
+export GIT_PS1_SHOWUNTRACKEDFILES=1 # '%' sign
+export GIT_PS1_SHOWUPSTREAM="auto"	 # '<' behind, '>' ahead, '=' no diff, '<>' diverged
+
+# Shell prompt
+export PS1="\e[0m•\$([[ \$? != 0 ]] && printf \"\e[1;91m✖\e[0m\")$([[ ${EUID} == 0 ]] && printf '•\e[1;38;5;203mroot\e[0m\e[1m@\e[0m\e[1;38;5;116m\h\e[0m' || printf '•\e[1;38;5;116mdivide\e[0m\e[1m@\e[0m\e[1;38;5;203m\h\e[0m'):\e[1;38;5;23m\w\e[1;38;5;072m \$(__git_promptPS1)\e[0m\n╰► "
+export PS2='▶ '
+
+# If you have fzf package installed, this one is to activate the
+# key-binding feature provided by fzf dev.
+if [[ -f /data/data/com.termux/files/usr/share/fzf/key-bindings.bash ]]; then
+	source /data/data/com.termux/files/usr/share/fzf/key-bindings.bash
+fi
+
+# This one is completion feature provided by fzf.
+if [[ -f /data/data/com.termux/files/usr/share/fzf/completion.bash ]]; then
+	source /data/data/com.termux/files/usr/share/fzf/completion.bash
+fi
+
+# Some optional clang stuff, but i'd leave this off by default.
+#if [[ -f /data/data/com.termux/files/usr/share/clang/bash-autocomplete.sh ]]; then
+#	source /data/data/com.termux/files/usr/share/clang/bash-autocomplete.sh
+#fi
+
+# Enable standard key binding for ctrl-s and ctrl-q, used for
+# suspend (ctrl-s) and unsuspend (ctrl-q) the output.
+# To disable it, change the argument to "-ixon".
+stty ixon
+
+# Use a vi-style to interact with terminal instead of emacs-style.
+#set -o vi
+
+# vim:foldmethod=marker:ts=4:ft=bash

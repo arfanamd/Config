@@ -1,0 +1,84 @@
+for i in /data/data/com.termux/files/usr/etc/profile.d/*.sh; do
+	if [ -r $i ]; then
+		. $i
+	fi
+done
+unset i
+
+# Source etc/bash.bashrc and ~/.bashrc also for interactive bash login shells:
+if [ "$BASH" ]; then
+	if [[ "$-" == *"i"* ]]; then
+		if [ -r /data/data/com.termux/files/usr/etc/bash.bashrc ]; then
+			. /data/data/com.termux/files/usr/etc/bash.bashrc
+		fi
+		if [ -r /data/data/com.termux/files/home/.bashrc ]; then
+			. /data/data/com.termux/files/home/.bashrc
+		fi
+	fi
+fi
+#=================================================================#
+# usefull functions {{{
+mkdircd ()	{ mkdir -p "$@" && eval cd "\"\$$#\""; }
+cdls 	() 	{ cd "$@" && eval ls; }
+rgb2hex () 	{ printf "\e[48;2;%d;%d;%dm    \e[0m #%02x%02x%02x\n" "$1" "$2" "$3" "$1" "$2" "$3"; }
+hex2rgb () 	{
+	local r=$[16#${1:0:2}]; local g=$[16#${1:2:2}]; local b=$[16#${1:4:2}]
+	printf "\e[48;2;%d;%d;%dm    \e[0m %s\n" "$r" "$g" "$b" "$r $g $b"; unset r g b;
+}
+revip 	() 	{
+	curl -s "https://api.hackertarget.com/reverseiplookup/?q=$1"; echo -e "\n"; 
+	curl -s "https://api.hackertarget.com/hostsearch/?q=$1"; echo -e "\n";
+}
+man 	() 	{
+	env \
+	LESS_TERMCAP_mb=$'\e[1;31m' \
+	LESS_TERMCAP_md=$'\e[1;38;2;255;84;51m' \
+	LESS_TERMCAP_me=$'\e[0m' \
+	LESS_TERMCAP_se=$'\e[0m' \
+	LESS_TERMCAP_so=$'\e[1;48;2;100;101;110m' \
+	LESS_TERMCAP_ue=$'\e[0m' \
+	LESS_TERMCAP_us=$'\e[1;38;5;118m' \
+	man "$@"
+}
+mk 	() 	{
+	local tmp=$(echo ${1#*.})
+	if [[ $tmp == 'c' ]]; then
+		gcc -Werror -Wall -Wextra -Wconversion -Wshadow -Wpedantic -std=c17 $@;
+	elif [[ $tmp == 'cpp' ]]; then
+		g++ -Werror -Wall -Wextra -Wconversion -Wshadow -Wpedantic -std=c++20 $@;
+	fi
+	if [[ $? == 0 ]]; then termux-elf-cleaner a.out; fi;
+}
+drust() {
+	if [[ "${1##*.}" == 'rs' ]]; then
+		rustc -C prefer-dynamic -o rs.out "${1}" && termux-elf-cleaner rs.out
+	fi
+}
+# }}}
+# usefull aliases {{{
+alias l='ls -Agh'
+alias c='clear'
+alias la='ls -A'
+alias hc='history -ac && > ~/.bash_history'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias temp='cd /data/data/com.termux/files/usr/tmp'
+alias wide='printf "<"; printf -- "-%.0s" {1..69}; printf ">\n"'
+alias wttr='curl "wttr.in/Cilodong?lang=id&format=%l:+%C+%t+%w\n"'
+# termux-api(s) aliases
+alias elf='termux-elf-cleaner'
+alias clip='termux-clipboard-set'
+alias open='termux-open --view --chooser'
+alias send='termux-open --send --chooser'
+alias speak='termux-tts-speak -e com.svox.pico -s MUSIC -p 1.3 -r 0.9'
+alias reload='termux-reload-settings'
+alias bright='termux-brightness'
+alias volume='termux-volume'
+# software aliases
+alias vi='vim -ni NONE -p'
+alias fzf='fzf --layout=reverse-list --tabstop=4 --scroll-off=9999'
+alias ffmpeg='ffmpeg -loglevel repeat+warning -stats -stats_period 1'
+# }}}
+
+#END_OF_FILE
+# vim:foldmethod=marker:ts=4:ft=sh
