@@ -1,0 +1,16 @@
+//
+// Do any local configuration here
+//
+
+zone "." in {
+	type hint;
+	file "/usr/share/dns/root.hints";
+};
+zone "localhost" in {
+	type master;
+	file "/etc/bind/db.localhost";
+};
+zone "127.in-addr.arpa" in {
+	type master;
+	file "/etc/bind/db.127";
+};
