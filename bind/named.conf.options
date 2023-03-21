@@ -1,0 +1,33 @@
+// Virtual Machine Clients
+acl okClients {
+	<range-of-ip-address>;
+  /* or */
+	<localhost>;
+  /* or */
+  <localnetwork>;
+};
+
+options {
+	directory "/var/cache/bind";
+	dump-file "/var/log/named_dump.db";
+	statistics-file "/var/log/named.stats";
+	dnssec-validation auto;
+
+	//recursion yes;
+
+	// ipv6
+	listen-on-v6 { none; };
+
+	// Conform to RFC1035
+	auth-nxdomain no;
+
+	// Use our defined acl
+	allow-query {	okClients; };
+
+	// Use Cloudflare DNS as forwarder instead of Google d("m")b
+	forwarders { 1.1.1.1;	};
+
+	// Use this local DNS as forwarder only, and not going to
+	// do resolving on its own
+	//forward only;
+};
