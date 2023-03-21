@@ -1,0 +1,20 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL		604800
+@   		        IN	SOA	<domain>. <email-domain>. (
+		    		                2		; Serial
+				                   3h		; Refresh
+				                   1h		; Retry
+				                   1w		; Expire
+				              604800 )	; Negative Cache TTL
+;
+@		            IN	NS	<domain>.
+@   		        IN	A	  <ip-address>
+<sub-domain>    IN  A   <ip-address>
+
+;; Mail Exchanges
+<sub-domain>	  IN	MX	10	<sub-domain-A-record>.
+
+;; Canonical Name
+<alias-domain>  IN  CNAME   <sub-domain-A-record>.
