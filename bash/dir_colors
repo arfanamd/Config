@@ -1,0 +1,73 @@
+#-------------------------------------------------------
+# My personal ls(1) or dir(1) colors file configuration.
+#
+# Run command ```dircolors -b <path-to-this-file>``` to
+# output bash LS_COLORS environment syntax that you can
+# place it into your bashrc or bash_profile file.
+#-------------------------------------------------------
+
+# Default terminal type
+TERM xterm-256color
+TERM screen-256color
+TERM tmux-256color
+
+# Common *nix basic file types
+NORMAL 00
+FILE 00
+DIR 1;34
+LINK 1;95
+ORPHAN 1;41;95
+MISSING 00
+FIFO 31
+SOCK 93
+#DOOR
+BLK 1;44;97
+CHR 1;44;97
+EXEC 92
+SUID 42
+SGID 42
+STICKY 42
+STICKY_OTHER_WRITABLE 1;102;90
+OTHER_WRITABLE 42
+
+# Other file types by it's extension
+
+## Archive or compressed file
+*.tar.gz 1;91
+*.tar.bz 1;91
+*.tar.xz 1;91
+*.tgz 1;91
+*.tbz 1;91
+*.zip 1;91
+*.rar 1;91
+*.bz2 1;91
+*.deb 1;91
+*.rpm 1;91
+*.jar 1;91
+*.gz 1;91
+*.bz 1;91
+*.xz 1;91
+*.7z 1;91
+
+## Media file
+*.jpeg 1;96
+*.svg 1;96
+*.png 1;96
+*.gif 1;96
+*.jpg 1;96
+*.ico 1;96
+
+*.webm 1;96
+*.mp4 1;96
+*.mkv 1;96
+*.avi 1;96
+
+*.mp3 1;96
+*.ogg 1;96
+*.wav 1;96
+
+## Backup file
+*.bak 47;90
+*.old 47;90
+*.swp 47;90
+*.ori 47;90
