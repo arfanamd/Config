@@ -18,29 +18,32 @@ if [ "$BASH" ]; then
 fi
 #=================================================================#
 # usefull functions {{{
-mkdircd ()	{ mkdir -p "$@" && eval cd "\"\$$#\""; }
-cdls 	() 	{ cd "$@" && eval ls; }
-rgb2hex () 	{ printf "\e[48;2;%d;%d;%dm    \e[0m #%02x%02x%02x\n" "$1" "$2" "$3" "$1" "$2" "$3"; }
-hex2rgb () 	{
-	local r=$[16#${1:0:2}]; local g=$[16#${1:2:2}]; local b=$[16#${1:4:2}]
-	printf "\e[48;2;%d;%d;%dm    \e[0m %s\n" "$r" "$g" "$b" "$r $g $b"; unset r g b;
+mkdircd() {
+	mkdir -p "$@" && eval cd "\"\$$#\"";
 }
-revip 	() 	{
+cdls() {
+	cd "$@" && eval ls;
+}
+revip() {
 	curl -s "https://api.hackertarget.com/reverseiplookup/?q=$1"; echo -e "\n"; 
 	curl -s "https://api.hackertarget.com/hostsearch/?q=$1"; echo -e "\n";
 }
-man 	() 	{
+bitchute() {
+	termux-clipboard-set "$(curl -s "${1}" | \
+		awk -F '"' '/mp4/ { print $2 }' )";
+}
+man() {
 	env \
 	LESS_TERMCAP_mb=$'\e[1;31m' \
-	LESS_TERMCAP_md=$'\e[1;38;2;255;84;51m' \
+	LESS_TERMCAP_md=$'\e[1;38;5;37m' \
 	LESS_TERMCAP_me=$'\e[0m' \
 	LESS_TERMCAP_se=$'\e[0m' \
-	LESS_TERMCAP_so=$'\e[1;48;2;100;101;110m' \
+	LESS_TERMCAP_so=$'\e[1;48;5;237m' \
 	LESS_TERMCAP_ue=$'\e[0m' \
-	LESS_TERMCAP_us=$'\e[1;38;5;118m' \
+	LESS_TERMCAP_us=$'\e[1;38;5;78m' \
 	man "$@"
 }
-mk 	() 	{
+mk() {
 	local tmp=$(echo ${1#*.})
 	if [[ $tmp == 'c' ]]; then
 		gcc -Werror -Wall -Wextra -Wconversion -Wshadow -Wpedantic -std=c17 $@;
@@ -59,7 +62,7 @@ drust() {
 alias l='ls -Agh'
 alias c='clear'
 alias la='ls -A'
-alias hc='history -ac && > ~/.bash_history'
+alias hc='history -wc && :> ~/.bash_history'
 alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias temp='cd /data/data/com.termux/files/usr/tmp'
@@ -77,6 +80,7 @@ alias volume='termux-volume'
 # software aliases
 alias vi='vim -ni NONE -p'
 alias fzf='fzf --layout=reverse-list --tabstop=4 --scroll-off=9999'
+alias grep='grep --color=always'
 alias ffmpeg='ffmpeg -loglevel repeat+warning -stats -stats_period 1'
 # }}}
 
