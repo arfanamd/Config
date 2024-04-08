@@ -37,6 +37,12 @@ export HISTTIMEFORMAT='%g%m%d:%H:%M '
 # Default text editor.
 export VISUAL='vi'
 
+# Default pager (text viewer)
+export PAGER='less --use-color -DdB -Dug -DPKb -~'
+
+# Fix no color when using man
+export GROFF_NO_SGR=1
+
 # Auto-correct for directory name misspelling/typo.
 shopt -s cdspell
 
