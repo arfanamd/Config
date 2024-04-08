@@ -1,0 +1,115 @@
+# --------------------------------------------------
+# MINIMAL SETUP SHELL FOR LINUX INCLUDE COLORIZING.
+# --------------------------------------------------
+# Less features you set
+# More skills you'll get.
+# --->>
+# Property of arfanamd.
+# Last edited: Tue Apr  9 01:02:16 WIB 2024
+# Kitty      : v.0.26.5
+# --------------------------------------------------
+
+# Command history tweaks:
+# - Append history instead of overwriting
+#   when shell exits.
+# - When using history substitution, do not
+#   exec command immediately.
+# - Do not save duplicated commands.
+shopt -s histappend
+shopt -s histverify
+export HISTCONTROL=erasedups
+
+# Default time format for history (optional).
+# The format use "date" command format.
+export HISTTIMEFORMAT='%g%m%d:%H:%M '
+
+# Default text editor.
+export VISUAL='vi'
+
+# Default pager (text viewer)
+export PAGER='less --use-color -DdB -Dug -DPKb -~'
+
+# Fix no color when using man
+export GROFF_NO_SGR=1
+
+# Auto-correct for directory name misspelling/typo.
+shopt -s cdspell
+
+# Warn the user when they're trying to exit while there's
+# jobs running in the background.
+shopt -s checkjobs
+
+# Default path wrapper in command prompt.
+export PROMPT_DIRTRIM=2
+
+# Some color set
+export LS_COLORS='no=00:fi=00:di=1;34:ln=1;95:or=1;41;95:mi=00:pi=31:so=93:bd=1;44;97:cd=1;44;97:ex=92:su=42:sg=42:st=42:tw=1;102;90:ow=42:*.tar.gz=1;91:*.tar.bz=1;91:*.tar.xz=1;91:*.tgz=1;91:*.tbz=1;91:*.zip=1;91:*.rar=1;91:*.bz2=1;91:*.deb=1;91:*.rpm=1;91:*.jar=1;91:*.gz=1;91:*.bz=1;91:*.xz=1;91:*.7z=1;91:*.jpeg=1;96:*.svg=1;96:*.png=1;96:*.gif=1;96:*.jpg=1;96:*.ico=1;96:*.webm=1;96:*.mp4=1;96:*.mkv=1;96:*.avi=1;96:*.mp3=1;96:*.ogg=1;96:*.wav=1;96:*.bak=47;90:*.old=47;90:*.swp=47;90:*.ori=47;90:';
+
+# Git prompt attribute
+export GIT_PS1_SHOWDIRTYSTATE=1        # '*' unstaged, '+' staged
+export GIT_PS1_SHOWSTASHSTATE=1        # '$' sign
+export GIT_PS1_SHOWUNTRACKEDFILES=1    # '%' sign
+export GIT_PS1_SHOWUPSTREAM="auto"     # '<' behind, '>' ahead, '=' no diff, '<>' diverged
+
+# User custom prompt
+if [[ "$(id -nu)" != "root" ]]; then
+	PS1="\e[0m\$([[ \$? != 0 ]] && printf \"\e[1;91mx\e[0m\")•\e[95m\u\e[0m@\e[96m\h\e[0m:\w \e[92m\$(__git_promptPS1)\e[0m\n⇨ "
+fi
+export PS2="▶ "
+
+# Available system plugins or add-ons for bash
+if [[ -d "/etc/profile.d" ]]; then
+	for rc in /etc/profile.d/*.sh; do
+		if [[ -r "${rc}" ]]; then
+			source "${rc}"
+		fi
+	done
+	unset rc
+fi
+
+# Available softwares completion
+if [[ -d "/etc/bash_completion.d" ]]; then
+	for rc in /etc/bash_completion.d/*; do
+		if [[ -r "${rc}" ]]; then
+			source "${rc}"
+		fi
+	done
+	unset rc
+fi
+
+# Available user plugins or add-ons
+if [[ -d "${HOME}/.profile.d" ]]; then
+	for rc in ${HOME}/.profile.d/*.sh; do
+		source ${rc}
+	done
+	unset rc
+fi
+
+# User binary path
+if [[ -d "${HOME}/.sbin" ]]; then
+	export PATH="${PATH}:${HOME}/.sbin"
+fi
+
+# User Rust utilities path
+if [[ -d "${HOME}/.cargo/bin" ]]; then
+	export PATH="${PATH}:${HOME}/.cargo/bin"
+fi
+
+if [[ -d "${HOME}/.rustup" ]]; then
+	export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOME}/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib"
+fi
+
+# User bash_profile
+if [[ -f "${HOME}/.bash_profile" ]]; then
+	source ${HOME}/.bash_profile
+fi
+
+# Enable standard key binding for ctrl-s and ctrl-q, used for
+# suspend (ctrl-s) and unsuspend (ctrl-q) the output.
+# To disable it, change the argument to "-ixon".
+stty ixon
+
+# Use a vi-style to interact with terminal instead of emacs-style.
+#set -o vi
+
+# vim:foldmethod=marker:ts=4:ft=bash
