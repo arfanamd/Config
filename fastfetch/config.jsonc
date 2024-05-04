@@ -1,0 +1,102 @@
+{
+	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+	"logo": null,
+	"display": {
+		"hideCursor": true,
+		"separator": " > ",
+		"size": {
+			"maxPrefix": "GB"
+		},
+		"color": {
+			"keys": "blue"
+		},
+		"binaryPrefix": "si"
+	},
+	"modules": [
+		"break",
+		{
+			"type": "custom",
+			"format": "            \u001b[1;4mSystem Information"
+		},
+		{
+			"type": "os",
+			"key": "        OS"
+		},
+		{
+			"type": "host",
+			"key": "   Machine"
+		},
+		{
+			"type": "board",
+			"key": "     Board"
+		},
+		{
+			"type": "kernel",
+			"key": "    Kernel"
+		},
+		{
+			"type": "uptime",
+			"key": "    Uptime"
+		},
+		{
+			"type": "terminal",
+			"key": "  Terminal"
+		},
+		{
+			"type": "packages",
+			"key": "  Packages"
+		},
+		{
+			"type": "shell",
+			"key": "     Shell"
+		},
+		{
+			"type": "terminalfont",
+			"key": "      Font"
+		},
+		{
+			"type": "cpu",
+			"key": " Processor"
+		},
+		{
+			"type": "gpu",
+			"key": "  Graphics"
+		},
+		{
+			"type": "vulkan",
+			"key": "    Vulkan"
+		},
+		{
+			"type": "opengl",
+			"key": "    OpenGL"
+		},
+		{
+			"type": "opencl",
+			"key": "    OpenCL"
+		},
+		{
+			"type": "memory",
+			"key": "    Memory"
+		},
+		{
+			"type": "swap",
+			"key": "      Swap"
+		},
+		{
+			"type": "disk",
+			"folders": "/",
+			"key": "  Disk (/)"
+		},
+		{
+			"type": "disk",
+			"folders": "/storage/emulated:/home",
+			"key": "   Storage"
+		},
+		{
+			"type": "colors",
+			"symbol": "square",
+			"paddingLeft": 14
+		}
+	]
+}
+// vim:ft=jsonc:ts=4:sw=4
