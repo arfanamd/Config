@@ -18,6 +18,7 @@
 	unstage = reset HEAD --
 	mer = branch --merged
 	nomer = branch --no-merged
+	psl = log --format=reference
 [color "status"]
 	untracked = 196 bold
 	added = 118 bold
@@ -29,3 +30,5 @@
 	current = 72 bold
 [push]
 	default = simple
+[clean]
+	requireForce = false
