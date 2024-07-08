@@ -13,6 +13,7 @@
 [init]
 	defaultBranch = master
 [alias]
+	co = checkout
 	st = status -s
 	lg = log --pretty=format:'%h::%ar\nAuthor: %an <%ae>\nCommiter: %cn <%ce>\n\n%s\n\n'
 	unstage = reset HEAD --
