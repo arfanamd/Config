@@ -14,7 +14,7 @@
     },
     {
       "passKeys": "/if",
-      "pattern": "https?://youtube.com/*"
+      "pattern": "https?://www.youtube.com/*"
     },
     {
       "passKeys": "/jk",
@@ -25,7 +25,7 @@
       "pattern": "https?://teleport.jabetto.com/*"
     },
     {
-      "passKeys": "",
+      "passKeys": "fms",
       "pattern": "https?://www.netflix.com/watch/*"
     },
     {
